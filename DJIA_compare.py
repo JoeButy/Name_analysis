@@ -8,15 +8,17 @@ import numpy as np
 pd.set_option('display.max_row', 10)
 pd.set_option('display.max_columns', 15)
 
-"
+
 mypath = #change this to wherever the baby names DL was unzipped
 djia_path = #change to where djia data is saved
 
 onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
 
+##### sample files only comment #####
+# onlyfiles = onlyfiles[:1] 
 run_size = 'full'
 
-run_size = 'sample'
+# run_size = 'sample'
 if run_size == 'sample':
 	file_ls = []
 	start_year = 82
@@ -182,15 +184,13 @@ def concat_files(mypath, onlyfiles, outfilenames):
 		else:
 			continue
 		print year, filename
-# 	total_df = rank_total(comp_df)
-	year_df = year_pct_change(comp_df)
-# 	avg_change_pct_df, diff_df, djia_df = compare_djia(year_df)
-# 	year_final_df = stack_reset(year_df, 'yr f')
-	return comp_df, year_df#, avg_change_pct_df, diff_df, djia_df
 
-final_df, year_df = \
-	concat_files(mypath, onlyfiles, [yearly_file_name, total_file_name])
+	return comp_df
 
+comp_df = concat_files(mypath, onlyfiles, new_file_ls)
+
+final_df = comp_df
+year_df = year_pct_change(comp_df)
 total_df = rank_total(comp_df)
 year_df = year_pct_change(comp_df)
 avg_change_pct_df, diff_df, djia_df = compare_djia(year_df)
